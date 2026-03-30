@@ -1,0 +1,50 @@
+#include <iostream>
+#include <map>
+#include <vector>
+#include <sstream>
+using namespace std;
+int main() 
+{
+    int n, q;
+    cin >> n >> q;
+    string line, tag_path = "";
+    map<string, string> m;
+    vector<string> tags;
+    while (n--) 
+    {
+        string temp, tag, attr, eq, val;
+        cin >> temp;
+        if (temp[1] == '/') 
+        { 
+            tag = temp.substr(2, temp.find('>') - 2);
+            tags.pop_back();
+            tag_path = "";
+            for (string t : tags) tag_path += (tag_path == "" ? "" : ".") + t;
+        } 
+        else 
+        { 
+            tag = temp.substr(1);
+            if (tag.back() == '>') tag.pop_back();
+            tags.push_back(tag);
+            tag_path = "";
+            for (string t : tags) tag_path += (tag_path == "" ? "" : ".") + t;
+
+            while (temp.back() != '>') 
+            {
+                cin >> attr >> eq >> val;
+                if (val.back() == '>') val.pop_back();
+                val = val.substr(1, val.size() - 2);
+                m[tag_path + "~" + attr] = val;
+                temp = ">"; 
+            }
+        }
+    }
+
+    while (q--) 
+    {
+        cin >> line;
+        if (m.count(line)) cout << m[line] << endl;
+        else cout << "Not Found!" << endl;
+    }
+    return 0;
+}
