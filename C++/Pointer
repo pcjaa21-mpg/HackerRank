@@ -1,0 +1,16 @@
+#include <iostream>
+void update(int *a, int *b) 
+{
+    int sum = *a + *b;
+    int diff = (*a > *b) ? (*a - *b) : (*b - *a);
+    *a = sum;
+    *b = diff;
+}
+int main() 
+{
+    int a, b;
+    std::cin >> a >> b;
+    update(&a, &b);
+    std::cout << a << "\n" << b;
+    return 0;
+}
