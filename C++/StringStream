@@ -1,0 +1,25 @@
+#include <sstream>
+#include <vector>
+#include <iostream>
+using namespace std;
+vector<int> parseInts(string str) 
+{
+    stringstream ss(str);
+    vector<int> res;
+    int n;
+    char c;
+    while (ss >> n) 
+    {
+        res.push_back(n);
+        ss >> c;
+    }
+    return res;
+}
+
+int main() 
+{
+    string s;
+    cin >> s;
+    for (int i : parseInts(s)) cout << i << "\n";
+    return 0;
+}
